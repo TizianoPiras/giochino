@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://bqapirsk0m430"]
+
+[ext_resource type="Texture2D" uid="uid://cub3ecwp8r0ih" path="res://Assets/grass_animated.png" id="1_61xap"]
+[ext_resource type="Script" path="res://scripts/grass_body.gd" id="1_opidp"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_dhb6q"]
+a = Vector2(32, 10)
+b = Vector2(-12, 10)
+
+[sub_resource type="Animation" id="Animation_uy4id"]
+resource_name = "grass_wind"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.9),
+"transitions": PackedFloat32Array(2.21914, 1, 2),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_erajq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_65plj"]
+_data = {
+"RESET": SubResource("Animation_erajq"),
+"grass_wind": SubResource("Animation_uy4id")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g7vxd"]
+animation = &"grass_wind"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tkffx"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hh2bu"]
+states/grass_wind/node = SubResource("AnimationNodeAnimation_g7vxd")
+states/grass_wind/position = Vector2(373, 100)
+transitions = ["Start", "grass_wind", SubResource("AnimationNodeStateMachineTransition_tkffx")]
+
+[node name="grass" type="CharacterBody2D"]
+script = ExtResource("1_opidp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-10, 0)
+shape = SubResource("SegmentShape2D_dhb6q")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -21)
+texture = ExtResource("1_61xap")
+vframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_65plj")
+}
+
+[node name="GrassTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_hh2bu")
+anim_player = NodePath("../AnimationPlayer")
+active = true

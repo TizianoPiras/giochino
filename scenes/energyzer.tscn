@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwhi11duidi46"]
+
+[ext_resource type="Script" path="res://scripts/energyzer.gd" id="1_sxv0t"]
+[ext_resource type="Texture2D" uid="uid://catenc0nhf45a" path="res://Assets/energy_cell02.png" id="2_pxpbf"]
+[ext_resource type="Texture2D" uid="uid://blgtfo71oatjv" path="res://Assets/energy_cell01.png" id="3_ohb6p"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dnecp"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 2.5,
+"texture": ExtResource("2_pxpbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ohb6p")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vjbdm"]
+radius = 13.0
+height = 26.0
+
+[node name="energyzer" type="Area2D"]
+script = ExtResource("1_sxv0t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_dnecp")
+animation = &"new_animation"
+autoplay = "new_animation"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_vjbdm")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

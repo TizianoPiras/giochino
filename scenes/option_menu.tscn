@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://p34s6fllngnv"]
+
+[ext_resource type="Script" path="res://scripts/option_menu.gd" id="1_50klf"]
+[ext_resource type="Texture2D" uid="uid://bf3cy0633ksoj" path="res://Assets/Background.jpg" id="2_jw8c1"]
+[ext_resource type="Texture2D" uid="uid://btha8g1x6mk1l" path="res://Assets/Buttons/Video_button-01.png" id="3_0nqc8"]
+[ext_resource type="Texture2D" uid="uid://d4cid0s6p0glk" path="res://Assets/Buttons/Video_button-02.png" id="4_kcppg"]
+[ext_resource type="Texture2D" uid="uid://dpff1imwy01e" path="res://Assets/Buttons/back_button-01.png" id="5_cdba3"]
+[ext_resource type="Texture2D" uid="uid://xjbl0hsqifpf" path="res://Assets/Buttons/back_button-02.png" id="6_7gf3k"]
+
+[node name="Option_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_50klf")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(0, 36)
+scale = Vector2(0.876, 0.876)
+texture = ExtResource("2_jw8c1")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -73.5
+offset_top = -81.0
+offset_right = 73.5
+offset_bottom = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Video Settings" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_0nqc8")
+texture_hover = ExtResource("4_kcppg")
+
+[node name="Back" type="TextureButton" parent="MarginContainer/VBoxContainer"]
+process_mode = 1
+layout_mode = 2
+texture_normal = ExtResource("5_cdba3")
+texture_hover = ExtResource("6_7gf3k")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Video Settings" to="." method="_on_video_settings_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]

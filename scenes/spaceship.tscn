@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://gsdoojixak82"]
+
+[ext_resource type="Texture2D" uid="uid://c8kmhdg2higyy" path="res://Assets/spaceship.png" id="1_ws28b"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n2bb2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ws28b")
+}],
+"loop": true,
+"name": &"static",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8jbth"]
+radius = 340.0
+height = 680.0
+
+[node name="Spaceship" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_n2bb2")
+animation = &"static"
+
+[node name="Spaceship" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Spaceship"]
+shape = SubResource("CapsuleShape2D_8jbth")

@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmniijl4f6ur3"]
+
+[ext_resource type="Script" path="res://scripts/video_pause.gd" id="1_wapr0"]
+[ext_resource type="Texture2D" uid="uid://3rasvejqaopw" path="res://Assets/Background.jpg" id="2_svl8j"]
+[ext_resource type="Texture2D" uid="uid://dscof2pab1877" path="res://Assets/Buttons/back_button-01.png" id="3_jxwrg"]
+[ext_resource type="Texture2D" uid="uid://bai3fe2jn1k6j" path="res://Assets/Buttons/back_button-02.png" id="4_1np8l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_608p8"]
+
+[node name="video_pause" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wapr0")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(-5, 24)
+scale = Vector2(0.876, 0.876)
+texture = ExtResource("2_svl8j")
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.5
+offset_top = -69.5
+offset_right = 109.5
+offset_bottom = 69.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer3"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="FullScreen" type="Label" parent="VBoxContainer3/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "FULL SCREEN ON/OFF"
+label_settings = SubResource("LabelSettings_608p8")
+
+[node name="VSync" type="Label" parent="VBoxContainer3/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = " VSYNC	             ON/OFF"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="fullscreen" type="CheckButton" parent="VBoxContainer3/HBoxContainer/VBoxContainer2"]
+process_mode = 1
+layout_mode = 2
+
+[node name="vsync" type="CheckButton" parent="VBoxContainer3/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Back" type="TextureButton" parent="VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture_normal = ExtResource("3_jxwrg")
+texture_hover = ExtResource("4_1np8l")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="VBoxContainer3/HBoxContainer/VBoxContainer2/fullscreen" to="." method="_on_fullscreen_pressed"]
+[connection signal="pressed" from="VBoxContainer3/HBoxContainer/VBoxContainer2/vsync" to="." method="_on_vsync_pressed"]
+[connection signal="pressed" from="VBoxContainer3/Back" to="." method="_on_back_pressed"]
